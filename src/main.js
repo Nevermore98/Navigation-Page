@@ -1,18 +1,24 @@
-const $siteList = $(".siteList")
+const $siteList = $(".site-list")
 const $lastLi = $siteList.find("li.last") // 读取 localStorage 中 site 键的值
 const site = localStorage.getItem("site") // 将值转化为对象
 const siteObject = JSON.parse(site)
 const hashMap = siteObject || [
   // 默认总是存在 || 后的网址
-  { logo: "A", url: "https://www.acfun.cn " },
-  { logo: "B", url: "https://www.bilibili.com" },
+  {logo: "A", url: "https://www.acfun.cn"},
+  {logo: "B", url: "https://www.bilibili.com"},
+  {logo: "J", url: "https://juejin.cn/user/3413315881539149"},
+  {logo: "Z", url: "https://www.zhihu.com/"},
 ]
 const simplifyUrl = (url) => {
   return url
     .replace("https://", "")
     .replace("http://", "")
     .replace("www.", "")
-    .replace(/\/.*/, "") // 删除 / 之后的所有内容
+    .replace(".com", "")
+    .replace(".cn", "")
+    .replace(".html", "")
+    .replace(/\/.*/, "") // 删除 / 之后的所有内容\
+    .replace(/^\S/, s => s.toUpperCase()) // 首字母大写
 }
 
 const render = () => {
@@ -30,7 +36,7 @@ const render = () => {
     </li>`).insertBefore($lastLi)
     $li.on("click", () => {
       window.open(node.url)
-    }) // 用 a 标签不好做，故采用点击 div 再执行跳转操作
+    })
     $li.on("click", ".close", (e) => {
       e.stopPropagation() // 阻止冒泡
       hashMap.splice(index, 1)
@@ -54,11 +60,6 @@ $(".addButton").on("click", () => {
   render()
 })
 window.onbeforeunload = () => {
-  // console.log("当前页面关闭")
   const string = JSON.stringify(hashMap)
-  // console.log(typeof hashMap)
-  // console.log(hashMap)
-  // console.log(typeof string)
-  // console.log(string)
   localStorage.setItem("site", string)
 }
