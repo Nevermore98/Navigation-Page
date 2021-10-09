@@ -52,7 +52,6 @@ $(".addButton").on("click", () => {
   if (url.indexOf("http") !== 0) {
     url = "https://" + url
   }
-  console.log(url)
   hashMap.push({
     logo: simplifyUrl(url)[0].toUpperCase(),
     url: url,

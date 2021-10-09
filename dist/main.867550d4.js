@@ -140,7 +140,6 @@ $(".addButton").on("click", function () {
   if (url.indexOf("http") !== 0) {
     url = "https://" + url;
   }
-  console.log(url);
   hashMap.push({
     logo: simplifyUrl(url)[0].toUpperCase(),
     url: url
@@ -152,4 +151,4 @@ window.onbeforeunload = function () {
   localStorage.setItem("site", string);
 };
 },{}]},{},["epB2"], null)
-//# sourceMappingURL=main.199d5ae6.map
+//# sourceMappingURL=main.867550d4.map
